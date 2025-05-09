@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>貯金シミュレーター</title>
+  <style>
+    /* 全体背景とアニメーション */
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(45deg, #f39c12, #8e44ad, #3498db);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* コンテナ装飾 */
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      max-width: 350px;
+      width: 90%;
+      text-align: center;
+      border: 4px solid #fff;
+    }
+    /* タイトル */
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #8e44ad;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease;
+    }
+    /* 入力フォーム */
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #3498db;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+    input[type="number"]:focus {
+      border-color: #e74c3c;
+      outline: none;
+    }
+    /* ボタン */
+    button {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(90deg, #3498db, #9b59b6);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    }
+    /* 計算結果 */
+    #result {
+      margin-top: 25px;
+      font-size: 1.4em;
+      color: #2c3e50;
+      animation: fadeIn 1s ease;
+    }
+    /* フェードインアニメーション */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>貯金シミュレーター✨</h1>
+    <div class="form-group">
+      <label for="monthlyAmount">毎月の貯金額（円）</label>
+      <input type="number" id="monthlyAmount" placeholder="例: 50000" min="0" />
+    </div>
+    <div class="form-group">
+      <label for="years">貯金年数（年）</label>
+      <input type="number" id="years" placeholder="例: 10" min="0" />
+    </div>
+    <button id="calculate">💰 計算する 💰</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById('calculate').addEventListener('click', function() {
+      const monthly = parseFloat(document.getElementById('monthlyAmount').value);
+      const years = parseFloat(document.getElementById('years').value);
+      const resultEl = document.getElementById('result');
+      if (isNaN(monthly) || isNaN(years) || monthly < 0 || years < 0) {
+        resultEl.textContent = '⚠️ 数値を正しく入力してください！';
+        return;
+      }
+      const total = monthly * 12 * years;
+      resultEl.textContent = `🎉 総貯金額: ¥${total.toLocaleString()}円 🎉`;
+    });
+  </script>
+</body>
+</html>
